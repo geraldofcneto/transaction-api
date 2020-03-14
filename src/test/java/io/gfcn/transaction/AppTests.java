@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,34 +46,26 @@ class AppTests {
 
     @Test
     void saveTransaction(){
+
+        Instant i = Instant.now();
+
         Transaction t1 = Transaction.builder()
                 .accountId(1L)
                 .operationTypeId(2L)
                 .amount(new BigDecimal("1.23"))
+                .eventDate(i)
                 .build();
-
 
         Transaction t2 = repository.save(t1);
 
         assertNotNull(t2);
         assertNotNull(t2.getTransactionId());
+        assertEquals(i, t2.getEventDate());
         
         Transaction t3 = repository.findById(t2.getTransactionId()).get();
 
         assertEquals(t2, t3);
     }
-
-    // @Test
-
-
-
-
-    @Test
-    @Disabled
-    void fails(){
-        throw new RuntimeException();
-    }
-
 
 
 }

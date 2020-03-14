@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class TransactionRequest {
-
-  Long accountId;
-
-  Long operationTypeId;
-
-  BigDecimal amount;
-  
+    
+    Long accountId;
+    
+    Long operationTypeId;
+    
+    BigDecimal amount;
+    
 }

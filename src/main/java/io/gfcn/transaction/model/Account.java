@@ -1,8 +1,5 @@
 package io.gfcn.transaction.model;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,25 +13,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Transaction {
-    
+@AllArgsConstructor
+public class Account {
+
     @Id
     @GeneratedValue
-    Long transactionId;
-    
+    Long accountID;
+
     @Column
-    Long accountId;
-    
-    @Column
-    Long operationTypeId;
-    
-    @Column
-    BigDecimal amount;
-    
-    @Column 
-    Instant eventDate;
-    
-    
+    Long documentNumber;
+
 }
