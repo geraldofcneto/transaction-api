@@ -25,6 +25,6 @@ public class OperationType {
     String description;
 
     @Column
-    Boolean invertedSignal;
+    boolean invertedSignal;
     
 }
