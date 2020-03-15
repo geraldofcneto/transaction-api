@@ -1,6 +1,7 @@
 package io.gfcn.transaction.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,30 +13,29 @@ import io.gfcn.transaction.model.Account;
 import io.gfcn.transaction.repository.AccountRepository;
 import io.gfcn.transaction.vo.AccountRequest;
 
-
-
 @RestController
 @RequestMapping("/accounts")
 public class AccountResource {
-    
+
     @Autowired
     AccountRepository repository;
-    
+
     @PostMapping
     public Account create(@RequestBody AccountRequest request) {
-        
-        Account account = Account.builder()
-                .documentNumber(request.getDocumentNumber()).build();
-        
+
+        Account account = Account.builder().documentNumber(request.getDocumentNumber()).build();
+
         return repository.save(account);
     }
 
     @GetMapping("/{documentNumber}")
-    public Account getMethodName(@PathVariable Long documentNumber) {
+    public Account findByDocument(@PathVariable Long documentNumber) {
+
+        Account a = Account.builder().documentNumber(documentNumber).build();
+
+        Example<Account> example = Example.of(a);
         
-        return repository.getOne(documentNumber);
+        return repository.findOne(example).orElseThrow(() -> new RuntimeException("User not found"));
     }
-    
-    
-    
+
 }

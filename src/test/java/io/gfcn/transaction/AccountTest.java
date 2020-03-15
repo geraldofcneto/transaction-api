@@ -12,6 +12,10 @@ import io.gfcn.transaction.resource.AccountResource;
 @SpringBootTest
 public class AccountTest {
 
+    // TODO 
+    // separate resource tests and repository tests
+    // mock dependecies
+
     @Autowired
     AccountResource resource;
 
@@ -20,14 +24,22 @@ public class AccountTest {
 
     @Test
     void save() {
-        Account a1 = Account.builder()
-                .documentNumber(11111111111L)
-                .build();
-        
+        Account a1 = Account.builder().documentNumber(11111111111L).build();
+
         Account a2 = repository.save(a1);
 
         Assertions.assertNotNull(a2);
     }
-    
+
+    @Test
+    void get() {
+        Account a1 = Account.builder().documentNumber(11111111111L).build();
+
+        repository.save(a1);
+        
+        Account account = resource.findByDocument(11111111111L);
+
+        Assertions.assertNotNull(account);
+    }
 
 }
