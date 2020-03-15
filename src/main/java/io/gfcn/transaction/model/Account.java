@@ -19,7 +19,7 @@ public class Account {
 
     @Id
     @GeneratedValue
-    Long accountID;
+    Long accountId;
 
     @Column
     Long documentNumber;
