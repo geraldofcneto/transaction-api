@@ -5,8 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import io.gfcn.transaction.model.Transaction;
 
+import java.util.List;
+
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
+    List<Transaction> findAllByAccountId(Long accountId);
   
 }

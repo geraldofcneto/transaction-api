@@ -1,22 +1,15 @@
 package io.gfcn.transaction.resource;
 
+import io.gfcn.transaction.model.Account;
 import io.gfcn.transaction.model.Transaction;
+import io.gfcn.transaction.repository.AccountRepository;
+import io.gfcn.transaction.repository.TransactionRepository;
+import io.gfcn.transaction.vo.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import io.gfcn.transaction.model.Account;
-import io.gfcn.transaction.repository.AccountRepository;
-import io.gfcn.transaction.vo.AccountRequest;
-
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -25,6 +18,9 @@ public class AccountResource {
 
     @Autowired
     AccountRepository repository;
+
+    @Autowired
+    TransactionRepository transactionRepository;
 
     @PostMapping
     public Account create(@RequestBody AccountRequest request) {
@@ -46,7 +42,7 @@ public class AccountResource {
     }
 
     public List<Transaction> getStatement(Account account) {
-        return Collections.<Transaction>emptyList();
+        return transactionRepository.findAllByAccountId(account.getAccountId());
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Account not found")
