@@ -14,8 +14,12 @@ import io.gfcn.transaction.model.Transaction;
 import io.gfcn.transaction.repository.TransactionRepository;
 import io.gfcn.transaction.resource.TransactionResource;
 import io.gfcn.transaction.vo.TransactionRequest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest
+@Sql({ "/db/data.sql" })
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class AppTests {
 
     @Autowired
@@ -38,7 +42,7 @@ class AppTests {
 
         assertEquals(1L, transaction.getAccountId());
         assertEquals(2L, transaction.getOperationTypeId());
-        assertEquals(new BigDecimal("1.23"), transaction.getAmount());
+        assertEquals(new BigDecimal("-1.23"), transaction.getAmount());
         assertNotNull(transaction.getTransactionId());
     }
 
