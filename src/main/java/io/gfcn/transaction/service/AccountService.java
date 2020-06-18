@@ -14,10 +14,11 @@ public class AccountService {
     @Autowired
     public TransactionRepository transactionRepository;
 
+    TransactionService transactionService;
     public AccountService() {
     }
 
     public List<Transaction> getStatement(Account account) {
-        return transactionRepository.findAllByAccountId(account.getAccountId());
+        return transactionService.getStatement(account);
     }
 }
