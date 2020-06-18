@@ -40,8 +40,6 @@ class AppTests {
         assertEquals(2L, transaction.getOperationTypeId());
         assertEquals(new BigDecimal("1.23"), transaction.getAmount());
         assertNotNull(transaction.getTransactionId());
-
-        
     }
 
     @Test
@@ -66,6 +64,5 @@ class AppTests {
 
         assertEquals(t2, t3);
     }
-
 
 }

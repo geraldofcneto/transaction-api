@@ -1,5 +1,10 @@
 package io.gfcn.transaction;
 
+import io.gfcn.transaction.model.Transaction;
+import io.gfcn.transaction.resource.TransactionResource;
+import io.gfcn.transaction.vo.TransactionRequest;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +13,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import io.gfcn.transaction.model.Account;
 import io.gfcn.transaction.repository.AccountRepository;
 import io.gfcn.transaction.resource.AccountResource;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
+@Sql({ "/db/data.sql" })
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class AccountTest {
 
     // TODO 
@@ -21,6 +36,9 @@ public class AccountTest {
 
     @Autowired
     AccountRepository repository;
+
+    @Autowired
+    TransactionResource transactionResource;
 
     @Test
     void save() {

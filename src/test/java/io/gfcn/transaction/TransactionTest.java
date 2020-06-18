@@ -20,15 +20,15 @@ import io.gfcn.transaction.vo.TransactionRequest;
 public class TransactionTest {
 
     @Autowired
-    TransactionResource transactionResouce;
+    TransactionResource transactionResource;
 
     @Test
     void createNegativeTransaction() {
         var request = new TransactionRequest(1L, 2L, new BigDecimal("1.23"));
 
-        Assertions.assertNotNull(transactionResouce);
+        Assertions.assertNotNull(transactionResource);
 
-        Transaction transaction = transactionResouce.create(request);
+        Transaction transaction = transactionResource.create(request);
 
         Assertions.assertEquals(1L, transaction.getAccountId());
         Assertions.assertEquals(2L, transaction.getOperationTypeId());
@@ -40,9 +40,9 @@ public class TransactionTest {
     void createPositiveTransaction() {
         var request = new TransactionRequest(1L, 4L, new BigDecimal("1.23"));
 
-        Assertions.assertNotNull(transactionResouce);
+        Assertions.assertNotNull(transactionResource);
 
-        Transaction transaction = transactionResouce.create(request);
+        Transaction transaction = transactionResource.create(request);
 
         Assertions.assertEquals(1L, transaction.getAccountId());
         Assertions.assertEquals(4L, transaction.getOperationTypeId());
@@ -56,9 +56,9 @@ public class TransactionTest {
 
         var request = new TransactionRequest(1L, 1L, new BigDecimal("-1.23"));
 
-        Assertions.assertNotNull(transactionResouce);
+        Assertions.assertNotNull(transactionResource);
 
-        Transaction transaction = transactionResouce.create(request);
+        Transaction transaction = transactionResource.create(request);
 
         Assertions.assertEquals(1L, transaction.getAccountId());
         Assertions.assertEquals(1L, transaction.getOperationTypeId());
