@@ -60,4 +60,18 @@ public class AccountTest {
         Assertions.assertNotNull(account);
     }
 
+    @Test
+    void getStatement() {
+        Account a1 = Account.builder().documentNumber(11111111111L).build();
+
+        var request = new TransactionRequest(a1.getAccountId(), 2L, new BigDecimal("1.23"));
+        Transaction transaction = transactionResource.create(request);
+
+        List<Transaction> statement = resource.getStatement(a1);
+
+        assertThat(statement, everyItem(isA(Transaction.class)));
+        assertThat(statement, Matchers.<Transaction>hasSize(1));
+        assertThat(statement, Matchers.contains(transaction));
+    }
+
 }

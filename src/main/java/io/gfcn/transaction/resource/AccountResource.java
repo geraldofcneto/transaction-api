@@ -1,5 +1,6 @@
 package io.gfcn.transaction.resource;
 
+import io.gfcn.transaction.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.gfcn.transaction.model.Account;
 import io.gfcn.transaction.repository.AccountRepository;
 import io.gfcn.transaction.vo.AccountRequest;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")
@@ -39,6 +43,10 @@ public class AccountResource {
         
         return repository.findOne(example)
             .orElseThrow(AccountNotFoundException::new);
+    }
+
+    public List<Transaction> getStatement(Account account) {
+        return Collections.<Transaction>emptyList();
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Account not found")
