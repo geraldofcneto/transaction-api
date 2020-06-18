@@ -3,7 +3,7 @@ package io.gfcn.transaction.resource;
 import io.gfcn.transaction.model.Account;
 import io.gfcn.transaction.model.Transaction;
 import io.gfcn.transaction.repository.AccountRepository;
-import io.gfcn.transaction.service.AccountService;
+import io.gfcn.transaction.service.TransactionService;
 import io.gfcn.transaction.vo.AccountRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -17,10 +17,10 @@ import java.util.List;
 public class AccountResource {
 
     @Autowired
-    AccountService accountService;
+    AccountRepository repository;
 
     @Autowired
-    AccountRepository repository;
+    TransactionService transactionService;
 
     @PostMapping
     public Account create(@RequestBody AccountRequest request) {
@@ -42,7 +42,7 @@ public class AccountResource {
     }
 
     public List<Transaction> getStatement(Account account) {
-        return accountService.getStatement(account);
+        return transactionService.getStatement(account);
     }
 
     @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Account not found")
