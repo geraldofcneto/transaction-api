@@ -3,6 +3,7 @@ package io.gfcn.transaction.resource;
 import java.math.BigDecimal;
 
 import io.gfcn.transaction.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,8 @@ import io.gfcn.transaction.vo.TransactionRequest;
 @RequestMapping("/transactions")
 public class TransactionResource {
 
-    final TransactionService transactionService = new TransactionService();
+    @Autowired
+    TransactionService transactionService;
 
     @PostMapping
     public Transaction create(@RequestBody TransactionRequest request) {
